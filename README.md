@@ -2,7 +2,6 @@
 
 [![npm](https://img.shields.io/npm/v/whats-inherited-mcp)](https://www.npmjs.com/package/whats-inherited-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![stcmain/whats-inherited-mcp MCP server](https://glama.ai/mcp/servers/stcmain/whats-inherited-mcp/badges/score.svg)](https://glama.ai/mcp/servers/stcmain/whats-inherited-mcp)
 
 **You review the code you clone. Almost nobody reviews the part of it that talks to your agent.** An MCP server that enumerates everything in a checkout addressed to an AI agent rather than to you: instruction files, hook commands wired to agent events, MCP servers the repo declares, and the skills and subagents it ships.
 
@@ -31,7 +30,7 @@ Run against a checkout of [langfuse/langfuse](https://github.com/langfuse/langfu
 | Instruction files             |    12 | ~41,848 est. tokens, 5,593 lines your agent is told to follow |
 | Hook commands                 |     0 | configured to run on agent events                             |
 | MCP servers declared          |     0 | 0 fetch code from a registry at launch                        |
-| Skills / commands / subagents |     0 | shipped by the repo, available to the agent                   |
+| Skills / commands / subagents | 33 extensions (196 files) | shipped under `.agents/`, available to the agent |
 
 ## Worth a look
 - 11 instruction file(s) are **not at the repo root** — they apply when the agent

@@ -389,13 +389,54 @@ function listExtensions(root: string): ExtensionEntry[] {
     for (const f of walk(abs, 3)) {
       if (!f.endsWith(".md")) continue;
       const bytes = statSync(f).size;
-      out.push({ kind, name: relative(abs, f), rel: relative(root, f), bytes });
+      const rel = relative(root, f);
+      if (out.some((e) => e.rel === rel)) continue; // root and nested passes can overlap
+      out.push({ kind, name: relative(abs, f), rel, bytes });
     }
   };
 
-  addDirOfMd(join(".claude", "skills"), "skill");
-  addDirOfMd(join(".claude", "commands"), "command");
-  addDirOfMd(join(".claude", "agents"), "subagent");
+  // Both conventions ship agent extensions: `.claude/` and `.agents/`. Scanning
+  // only `.claude/` made this tool report "ships no skills" about repos that
+  // ship them under `.agents/` — while its own instruction-file list showed
+  // those same files. Look for `.agents/` at the repo root AND nested (e.g.
+  // `web/.agents/skills`), which monorepos use per package.
+  const EXT_KINDS: [string, ExtensionEntry["kind"]][] = [
+    ["skills", "skill"],
+    ["commands", "command"],
+    ["agents", "subagent"],
+  ];
+
+  for (const container of [".claude", ".agents"]) {
+    for (const [sub, kind] of EXT_KINDS) addDirOfMd(join(container, sub), kind);
+  }
+
+  // Nested `.agents/` directories, bounded: only look a couple of levels down
+  // so a large monorepo stays cheap to scan.
+  const NESTED_SKIP = new Set([
+    "node_modules", ".git", "dist", "build", ".next", "vendor", "target", "coverage",
+  ]);
+  const findNested = (dir: string, depth: number) => {
+    if (depth > 2) return;
+    let entries: string[];
+    try {
+      entries = readdirSync(dir, { withFileTypes: true })
+        .filter((d) => d.isDirectory() && !NESTED_SKIP.has(d.name))
+        .map((d) => d.name);
+    } catch {
+      return;
+    }
+    for (const name of entries) {
+      const abs = join(dir, name);
+      if (name === ".agents" || name === ".claude") {
+        if (abs === join(root, name)) continue; // root already covered above
+        for (const [sub, kind] of EXT_KINDS) addDirOfMd(relative(root, join(abs, sub)), kind);
+        continue;
+      }
+      if (name.startsWith(".")) continue;
+      findNested(abs, depth + 1);
+    }
+  };
+  findNested(root, 0);
 
   for (const marker of [".claude-plugin", join(".claude", "plugins")]) {
     const abs = join(root, marker);

@@ -1,6 +1,6 @@
 {
   "name": "whats-inherited-mcp",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "mcpName": "io.github.stcmain/whats-inherited-mcp",
   "description": "MCP server that shows what a checkout you did not write tells your agent to do — instruction files, hook commands wired to agent events, MCP servers it declares, and the skills and subagents it ships.",
   "type": "module",

@@ -398,16 +398,25 @@ server.registerTool(
     title: "Skills, commands and subagents the repo ships",
     description:
       "Skills, slash commands, subagent definitions and plugin markers shipped inside the checkout's " +
-      ".claude directory. These become available to an agent working in this directory. Names and " +
-      "sizes only — contents are never returned.",
+      "`.claude/` or `.agents/` directories (root, or one to two levels down — monorepos put them per " +
+      "package). These become available to an agent working in this directory. Counts distinct extensions " +
+      "and the markdown files they carry. Names and sizes only — contents are never returned.",
     inputSchema: dirArg,
   },
   async ({ dir }) =>
     withScan(dir, (r) => {
       const L: string[] = [];
       L.push(`# Agent extensions shipped by this checkout — ${r.rootDisplay}\n`);
+      // An extension is a directory (e.g. `skills/foo/`); it may carry several markdown
+      // files (SKILL.md plus references/). Report both so neither number misleads.
+      const extUnits = new Set(
+        r.extensions.map((e) => `${e.kind}:${String(e.name).split("/")[0]}`),
+      );
       if (r.extensions.length === 0) {
-        L.push("None. This checkout ships no skills, commands or subagent definitions.");
+        L.push(
+          "No skills, commands or subagent definitions found under `.claude/` or `.agents/` " +
+            "(repo root, or one to two levels down). Other conventions are not scanned.",
+        );
         return L.join("\n") + truncNote(r);
       }
 
@@ -416,7 +425,11 @@ server.registerTool(
         byKind.set(e.kind, [...(byKind.get(e.kind) ?? []), e]);
       }
 
-      L.push(`**${r.extensions.length} item(s).**\n`);
+      L.push(
+        `**${extUnits.size} extension(s)** carrying **${r.extensions.length} markdown file(s)**. ` +
+          `A skill is a directory; it may ship SKILL.md plus reference docs, and every one of them ` +
+          `is content an agent can pull in.\n`,
+      );
       L.push(UNTRUSTED_NOTE + "\n");
       for (const [kind, items] of byKind) {
         L.push(`## ${kind} (${items.length})\n`);
