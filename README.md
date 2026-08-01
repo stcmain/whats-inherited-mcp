@@ -2,6 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/whats-inherited-mcp)](https://www.npmjs.com/package/whats-inherited-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Glama](https://glama.ai/mcp/servers/stcmain/whats-inherited-mcp/badge)](https://glama.ai/mcp/servers/stcmain/whats-inherited-mcp)
 
 **You review the code you clone. Almost nobody reviews the part of it that talks to your agent.** An MCP server that enumerates everything in a checkout addressed to an AI agent rather than to you: instruction files, hook commands wired to agent events, MCP servers the repo declares, and the skills and subagents it ships.
 
