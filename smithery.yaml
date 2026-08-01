@@ -1,0 +1,10 @@
+# Smithery configuration — local (stdio) server.
+# Read-only: takes no credentials and no configuration.
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+    required: []
+  commandFunction: |-
+    () => ({ command: 'npx', args: ['-y', 'whats-inherited-mcp'] })
