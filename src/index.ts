@@ -19,8 +19,11 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import { scan, resolveRoot, estTokens, type ScanResult, type PathClass } from "./scan.js";
+import { createRequire } from "node:module";
 
-const VERSION = "0.1.4";
+// Read from package.json so the version reported to clients can never drift
+// from the published version. `npm version` only edits package.json.
+const VERSION: string = createRequire(import.meta.url)("../package.json").version;
 
 /**
  * Any string below that originated inside the scanned directory is untrusted
