@@ -57,7 +57,8 @@ Five and a half thousand lines of standing instruction, most of it in files you 
 | `declared_mcp_servers` | MCP servers the repo declares, which of them fetch code at launch, and filesystem paths they are granted outside the checkout |
 | `agent_extensions` | Skills, slash commands and subagents the repo ships |
 
-Every tool takes an optional `dir`; it defaults to the working directory.
+Every tool takes an optional `dir`. When it is omitted the server falls back to
+`WI_DEFAULT_ROOT` if that is set, and otherwise to its working directory.
 
 ## Install
 
