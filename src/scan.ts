@@ -159,11 +159,17 @@ function readJsonSafe(path: string): Record<string, unknown> | null {
 
 /**
  * Resolve the caller-supplied directory.
+ * Precedence: the tool's own `dir` argument, then the `WI_DEFAULT_ROOT`
+ * environment variable, then the process working directory. The env fallback
+ * exists because a server launched by a desktop client inherits that client's
+ * working directory, which is rarely the checkout the user meant.
  * Throws on anything that is not an existing directory, so a bad `dir` fails
  * loudly instead of silently scanning something adjacent.
  */
 export function resolveRoot(dir?: string): string {
-  const candidate = resolve(dir && dir.trim() ? dir.trim() : process.cwd());
+  const configured = process.env.WI_DEFAULT_ROOT?.trim();
+  const requested = dir?.trim() || configured || process.cwd();
+  const candidate = resolve(requested);
   let real: string;
   try {
     real = realpathSync(candidate);

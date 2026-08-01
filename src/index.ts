@@ -20,7 +20,7 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import { z } from "zod";
 import { scan, resolveRoot, estTokens, type ScanResult, type PathClass } from "./scan.js";
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.4";
 
 /**
  * Any string below that originated inside the scanned directory is untrusted
@@ -75,7 +75,7 @@ const dirArg = {
     .string()
     .optional()
     .describe(
-      "Absolute path to the checkout to inspect. Defaults to the server's working directory.",
+      "Absolute path to the checkout to inspect. Defaults to WI_DEFAULT_ROOT if set, otherwise the server's working directory.",
     ),
 };
 

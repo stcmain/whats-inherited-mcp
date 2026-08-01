@@ -95,7 +95,30 @@ npm install && npm run build
 Published as [`whats-inherited-mcp`](https://www.npmjs.com/package/whats-inherited-mcp) on npm and as
 `io.github.stcmain/whats-inherited-mcp` in the [MCP Registry](https://registry.modelcontextprotocol.io/).
 
-No configuration. No environment variables.
+### Configuration
+
+One optional setting, and it takes no credentials.
+
+| Variable | Default | Meaning |
+|---|---|---|
+| `WI_DEFAULT_ROOT` | the server's working directory | Directory to inspect when a tool is called without a `dir` argument. |
+
+Every tool accepts an explicit `dir`, which always wins. `WI_DEFAULT_ROOT` only
+changes the fallback, and it is worth setting when a desktop client launches the
+server: the process then inherits *that client's* working directory, which is
+rarely the checkout you meant to inspect.
+
+```json
+{
+  "mcpServers": {
+    "whats-inherited": {
+      "command": "npx",
+      "args": ["-y", "whats-inherited-mcp"],
+      "env": { "WI_DEFAULT_ROOT": "/path/to/the/checkout" }
+    }
+  }
+}
+```
 
 ## What it counts, and what it refuses to guess
 
