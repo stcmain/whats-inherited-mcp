@@ -17,12 +17,12 @@
     "url": "https://github.com/stcmain/whats-inherited-mcp",
     "source": "github"
   },
-  "version": "0.1.5",
+  "version": "0.1.6",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "whats-inherited-mcp",
-      "version": "0.1.4",
+      "version": "0.1.6",
       "transport": {
         "type": "stdio"
       }
