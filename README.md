@@ -155,10 +155,11 @@ This server's whole job is to look at content that may be hostile, so the design
 
 Built by [Shift The Culture](https://shifttheculture.media/?utm_source=github&utm_medium=readme&utm_campaign=whats-inherited-mcp) — we run a one-person company on AI agents and ship the tooling we needed ourselves. This server is free and MIT-licensed, no strings.
 
-It has two siblings, both also free and MIT:
+It has three siblings, all also free and MIT:
 
 - [**whats-running-mcp**](https://github.com/stcmain/whats-running-mcp) — what is *actually* running on the box right now, instead of what an old transcript claims.
 - [**whats-loaded-mcp**](https://github.com/stcmain/whats-loaded-mcp) — what is eating your context window before you type: skill descriptions, memory files and their imports.
+- [**whats-allowed-mcp**](https://github.com/stcmain/whats-allowed-mcp) — what your agent can do without asking you: merged permission rules, which settings file wins, and the rules your client accepts and then ignores.
 
 The rest of that tooling is paid:
 
