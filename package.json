@@ -2,7 +2,7 @@
   "name": "whats-inherited-mcp",
   "version": "0.1.6",
   "mcpName": "io.github.stcmain/whats-inherited-mcp",
-  "description": "MCP server that shows what a checkout you did not write tells your agent to do — instruction files, hook commands wired to agent events, MCP servers it declares, and the skills and subagents it ships.",
+  "description": "MCP server that shows what a checkout you did not write tells your agent to do \u2014 instruction files, hook commands wired to agent events, MCP servers it declares, and the skills and subagents it ships.",
   "type": "module",
   "bin": {
     "whats-inherited-mcp": "dist/index.js"
@@ -17,7 +17,10 @@
     "build": "tsc && chmod +x dist/index.js",
     "prepare": "npm run build",
     "start": "node dist/index.js",
-    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js"
+    "inspect": "npx @modelcontextprotocol/inspector node dist/index.js",
+    "pretest": "npm run build",
+    "test": "node --test test/contract.test.mjs test/server.test.mjs",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "mcp",
