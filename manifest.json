@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "whats-inherited-mcp",
   "display_name": "What's Inherited",
-  "version": "0.1.0",
+  "version": "0.1.6",
   "description": "What a checkout you did not write tells your agent to do.",
   "long_description": "Enumerates everything in a directory that is addressed to an AI agent rather than to you: CLAUDE.md/AGENTS.md instruction files including nested and symlinked ones, hook commands the checkout wires to agent events, MCP servers it declares (and which of them fetch code at launch), and the skills, commands and subagents it ships. Read-only by construction: no child processes, no network, no writes. Instruction file bodies are never returned, so the server cannot become the injection vector it reports on.",
   "author": {
@@ -27,11 +27,16 @@
     "type": "node",
     "entry_point": "dist/index.js",
     "mcp_config": {
-      "command": "npx",
+      "command": "node",
       "args": [
-        "-y",
-        "whats-inherited-mcp"
+        "${__dirname}/dist/index.js"
       ]
     }
-  }
+  },
+  "compatibility": {
+    "runtimes": {
+      "node": ">=18"
+    }
+  },
+  "icon": "logo.png"
 }

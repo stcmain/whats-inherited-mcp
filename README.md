@@ -62,6 +62,8 @@ Every tool takes an optional `dir`. When it is omitted the server falls back to
 
 ## Install
 
+**Claude Desktop (one-click, no terminal):** download the latest `whats-inherited-mcp-<version>.dxt` from [Releases](https://github.com/stcmain/whats-inherited-mcp/releases) and open it with Claude Desktop (double-click, or Settings → Extensions → Install Extension…). The server and its dependencies ship inside the bundle — no npm, no Node install.
+
 Register with Claude Code (available in every session):
 
 ```bash
